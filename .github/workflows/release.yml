@@ -15,14 +15,12 @@ jobs:
       - name: Setup Helm
         uses: azure/setup-helm@v2
 
-      - name: Setup chart-releaser
+      - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.0
         env:
-          CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Correctly set the CR_TOKEN environment variable
-
-      - name: Run chart-releaser
-        env:
           CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          helm repo index ./charts --url https://lanceapps.github.io/tasks/
-          cr upload -o lanceapps -r tasks -t ${{ secrets.GITHUB_TOKEN }}
+        with:
+          owner: lanceapps
+          repo: tasks
+          charts_dir: ./charts
+          packages_with_index: true
