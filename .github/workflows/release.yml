@@ -17,8 +17,8 @@ jobs:
 
       - name: Setup chart-releaser
         uses: helm/chart-releaser-action@v1.4.0
-        with:
-          version: v1.4.0
+        env:
+          CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Correctly set the CR_TOKEN environment variable
 
       - name: Run chart-releaser
         env:
